@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Condition="'$(UseCoreRT)' == 'true'">
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(UseCoreRT)' != 'true'">
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(UseCoreRT)' == 'true'">
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="6.0.0-*" />
+    <AppContextSwitchOverrides Include="Switch.System.Reflection.Disabled.DoNotThrowForAssembly" />
+    <AppContextSwitchOverrides Include="Switch.System.Reflection.Disabled.DoNotThrowForAttributes" />
+  </ItemGroup>
+
+</Project>
